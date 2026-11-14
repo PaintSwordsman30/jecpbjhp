@@ -426,10 +426,10 @@ return function(it, expect, ctx)
 		for _ = 1, 40 do MS:StepMob(carrier, 5, t) end
 		expect(carrier.model.Parent).toBe(nil)
 		expect(chests()).toBe(chestsBefore + 1)
-		-- Moon Reaper belongs to the night: by day an unprovoked one leaves
+		-- Moon Reaper belongs to the night: by day an unprovoked one leaves (a Blood Moon keeps it)
 		local reaper = spawnAt("moon_reaper", Vector3.new(-70, 0, 0))
 		MS:StepMob(reaper, 0.1, t + 0.1)
-		expect(reaper.model.Parent ~= nil).toBe(DayNight.Current().id == "night")
+		expect(reaper.model.Parent ~= nil).toBe(DayNight.Current().id == "night" or WS:Get() == "blood_moon")
 		-- Index Keeper casts a random mushroom ability: it heals itself or hurts the player
 		local keeper = spawnAt("index_keeper", Vector3.new(0, 0, -4))
 		keeper.nextAttack = math.huge
